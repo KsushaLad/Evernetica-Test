@@ -24,7 +24,7 @@ public class MyScaleGestures implements View.OnTouchListener, ScaleGestureDetect
     public boolean onScale(ScaleGestureDetector detector) {
         scaleFactor *= detector.getScaleFactor();
         scaleFactor = (scaleFactor < 1 ? 1 : scaleFactor); // prevent our view from becoming too small //
-        scaleFactor = ((float)((int)(scaleFactor * 1000))) / 1000; // Change precision to help with jitter when user just rests their fingers //
+        scaleFactor = ((float)((int)(scaleFactor * 1150))) / 1150; // Change precision to help with jitter when user just rests their fingers //
         view.setScaleX(scaleFactor);
         view.setScaleY(scaleFactor);
         return true;
