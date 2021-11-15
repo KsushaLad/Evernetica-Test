@@ -38,10 +38,9 @@ public class SetWallpaperActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String url = intent.getStringExtra("image");
         Glide.with(this).load(getIntent().getStringExtra("image")).into(imageView);
-        imageView.setOnTouchListener(new MyScaleGestures(this));
-//        mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
-//        mScaleFactor = Math.max(1.0f, Math.min(mScaleFactor, 1.1f));
-
+        //imageView.setOnTouchListener(new MyScaleGestures(this));
+        mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
+       
         set.setOnClickListener(view -> {
             Toast.makeText(SetWallpaperActivity.this, "DONE", Toast.LENGTH_SHORT).show();
             Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
@@ -52,18 +51,19 @@ public class SetWallpaperActivity extends AppCompatActivity {
             }
         });
     }
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        return mScaleGestureDetector.onTouchEvent(event);
-//    }
-//
-//private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-//    @Override
-//    public boolean onScale(ScaleGestureDetector scaleGestureDetector){
-//        mScaleFactor *= scaleGestureDetector.getScaleFactor();
-//        imageView.setScaleX(mScaleFactor);
-//        imageView.setScaleY(mScaleFactor);
-//        return true;
-//    }
-//}
+    @Override
+   public boolean onTouchEvent(MotionEvent event) {
+        return mScaleGestureDetector.onTouchEvent(event);
+   }
+
+private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+   @Override
+    public boolean onScale(ScaleGestureDetector scaleGestureDetector){
+       mScaleFactor *= scaleGestureDetector.getScaleFactor();
+       mScaleFactor = Math.max(1.0f, Math.min(mScaleFactor, 1.1f));
+       imageView.setScaleX(mScaleFactor);
+       imageView.setScaleY(mScaleFactor);
+          return true;
+    }
+}
 }
