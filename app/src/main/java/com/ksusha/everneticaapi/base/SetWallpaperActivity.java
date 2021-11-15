@@ -38,8 +38,8 @@ public class SetWallpaperActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String url = intent.getStringExtra("image");
         Glide.with(this).load(getIntent().getStringExtra("image")).into(imageView);
-        //imageView.setOnTouchListener(new MyScaleGestures(this));
-        mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
+        //imageView.setOnTouchListener(new MyScaleGestures(this)); //первая реализация
+        mScaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener()); //вторая реализация
        
         set.setOnClickListener(view -> {
             Toast.makeText(SetWallpaperActivity.this, "DONE", Toast.LENGTH_SHORT).show();
@@ -60,7 +60,7 @@ private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureLis
    @Override
     public boolean onScale(ScaleGestureDetector scaleGestureDetector){
        mScaleFactor *= scaleGestureDetector.getScaleFactor();
-       mScaleFactor = Math.max(1.0f, Math.min(mScaleFactor, 1.1f));
+       mScaleFactor = Math.max(0.5f, Math.min(mScaleFactor, 1.5f));
        imageView.setScaleX(mScaleFactor);
        imageView.setScaleY(mScaleFactor);
           return true;
