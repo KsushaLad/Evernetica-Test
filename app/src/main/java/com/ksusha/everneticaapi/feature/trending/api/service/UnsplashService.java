@@ -47,14 +47,14 @@ public ApiIntephase getApiIntephase(){
             @NotNull
             @Override
             public Response intercept(@NotNull Chain chain) throws IOException {
-                final Request original = chain.request();
-                final HttpUrl originalHttpUrl = original.url();
-                final HttpUrl url = originalHttpUrl.newBuilder()
+                Request original = chain.request();
+                HttpUrl originalHttpUrl = original.url();
+                HttpUrl url = originalHttpUrl.newBuilder()
                         .addQueryParameter("api_key", KEY_API)
                         .build();
-                final Request.Builder requestBuilder = original.newBuilder()
+                Request.Builder requestBuilder = original.newBuilder()
                         .url(url);
-                final Request request = requestBuilder.build();
+                Request request = requestBuilder.build();
                 return chain.proceed(request);
             }
         });

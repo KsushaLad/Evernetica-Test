@@ -2,6 +2,9 @@ package com.ksusha.everneticaapi.base.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.ksusha.everneticaapi.R;
+import com.ksusha.everneticaapi.base.MainActivity;
 import com.ksusha.everneticaapi.base.SetWallpaperActivity;
 import com.ksusha.everneticaapi.feature.model.ImageModel;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,10 +51,23 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 .into(holder.imageView);
         holder.imageView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), SetWallpaperActivity.class);
-            intent.putExtra("image", wallpaperList.get(position).getUrls().getRegular());
+            //intent.putExtra("image", wallpaperList.get(position).getUrls().getRegular());
+            intent.putExtra("image","" + wallpaperList.get(position).getUrls().getRegular());
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             v.getContext().startActivity(intent);
         });
+holder.imageView.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(view.getContext(), SetWallpaperActivity.class);
+        intent.putExtra("image", wallpaperList.get(position).getUrls().getRegular());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        view.getContext().startActivity(intent);
+        return;
+    }
+});
+
+
     }
 
     public void updateAdapter(List<ImageModel> newList) { //обновление адаптера
